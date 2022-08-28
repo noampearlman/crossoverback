@@ -1,16 +1,16 @@
 from rest_framework.serializers import ModelSerializer
-from base.models import Note,Kid,Connection,Direction,Property,Type
+from base.models import Connection,Direction,Property,Type
+# from base.models import  Note,Kid
  
- 
-class NoteSerializer(ModelSerializer):
-    class Meta:
-        model = Note
-        fields = '__all__'
+# class NoteSerializer(ModelSerializer):
+#     class Meta:
+#         model = Note
+#         fields = '__all__'
 
-class KidSerializer(ModelSerializer):
-    class Meta:
-        model = Kid
-        fields = '__all__'
+# class KidSerializer(ModelSerializer):
+#     class Meta:
+#         model = Kid
+#         fields = '__all__'
 
 class PropertySerializer(ModelSerializer):
     class Meta:

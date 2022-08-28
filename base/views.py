@@ -9,8 +9,11 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
  
  
-from .serializers import NoteSerializer,KidSerializer,PropertySerializer,ConnectionSerializer,DirectionSerializer,TypeSerializer
-from base.models import Note,Kid,Property,Connection,Direction,Type
+from .serializers import PropertySerializer,ConnectionSerializer,DirectionSerializer,TypeSerializer
+from base.models import Property,Connection,Direction,Type
+
+# from .serializers import NoteSerializer,KidSerializer
+# from base.models import Note,Kid
  
  
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -40,52 +43,6 @@ def getRoutes(request):
  
     return Response(routes)
  
- 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getNotes(request):
-    print("innnn")
-    user = request.user
-    print(user)
-    notes = user.note_set.all()
-    print(notes)
-    serializer = NoteSerializer(notes, many=True)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def addNote(request):
-    print(request.data)
-    user = request.user
-    Note.objects.create(body=request.data["notebody"],user=user)
-    print(user)
-    notes = user.note_set.all()
-    print(notes)
-    serializer = NoteSerializer(notes, many=True)
-    return Response(serializer.data) 
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getKids(request):
-    user = request.user
-    kids = user.kid_set.all()
-    serializer = KidSerializer(kids, many=True)
-    return Response(serializer.data)
-    
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def addKid(request):
-    print(request.data)
-    user = request.user
-    Kid.objects.create( name=request.data["name"],
-                        age=request.data["age"],
-                        user=user)
-    kids = user.kid_set.all()
-    serializer = KidSerializer(kids, many=True)
-    return Response(serializer.data) 
-
-
-
 # -----Connections-----
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
@@ -108,6 +65,17 @@ def addCon(request):
     serializer = ConnectionSerializer(cons, many=True)
     return Response(serializer.data)
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delCon(request, con_id=-1):
+    con = Connection.objects.get(id = con_id)
+    con.delete()
+    # print("hello")
+    cons = Connection.objects.all()
+    serializer = ConnectionSerializer(cons, many=True)
+    return Response(serializer.data)
+
+
 # -----Props-----
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
@@ -125,6 +93,14 @@ def addProp(request):
     serializer = PropertySerializer(props, many=True)
     return Response(serializer.data)
 
+@api_view(['DELETE'])
+# @permission_classes([IsAuthenticated])
+def delProp(request, prop_id=-1):
+    prop = Property.objects.get(id = prop_id)
+    prop.delete()
+    props = Property.objects.all()
+    serializer = PropertySerializer(props, many=True)
+    return Response(serializer.data)
 # -----Types-----
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -171,6 +147,48 @@ def addUser(request):
     return JsonResponse({"added":request.data["username"]} )
  
 
+#-----TEST STUFF-----
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def getNotes(request):
+#     print("innnn")
+#     user = request.user
+#     print(user)
+#     notes = user.note_set.all()
+#     print(notes)
+#     serializer = NoteSerializer(notes, many=True)
+#     return Response(serializer.data)
 
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def addNote(request):
+#     print(request.data)
+#     user = request.user
+#     Note.objects.create(body=request.data["notebody"],user=user)
+#     print(user)
+#     notes = user.note_set.all()
+#     print(notes)
+#     serializer = NoteSerializer(notes, many=True)
+#     return Response(serializer.data) 
+
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def getKids(request):
+#     user = request.user
+#     kids = user.kid_set.all()
+#     serializer = KidSerializer(kids, many=True)
+#     return Response(serializer.data)
+    
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def addKid(request):
+#     print(request.data)
+#     user = request.user
+#     Kid.objects.create( name=request.data["name"],
+#                         age=request.data["age"],
+#                         user=user)
+#     kids = user.kid_set.all()
+#     serializer = KidSerializer(kids, many=True)
+#     return Response(serializer.data) 
     
  

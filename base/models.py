@@ -3,15 +3,15 @@ from django.contrib.auth.models import User
 from django.forms import IntegerField
  
 # test data
-class Note(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    body = models.TextField()
+# class Note(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+#     body = models.TextField()
  
  
-class Kid(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    name = models.TextField()
-    age = models.IntegerField()
+# class Kid(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+#     name = models.TextField()
+#     age = models.IntegerField()
 
 # real data
 class Property(models.Model):
