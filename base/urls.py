@@ -13,13 +13,16 @@ urlpatterns = [
     path('cons/', views.getCons),
     path('addcon/', views.addCon),
     path('delcon/<con_id>', views.delCon),
+    path('updcon/<con_id>', views.updCon),
 
     path('props/', views.getProps),
     path('addprop/', views.addProp),
     path('delprop/<prop_id>', views.delProp),
+    path('updprop/<prop_id>', views.updProp),
     
     path('types/', views.getTypes),
     path('addtype/', views.addType),
+    path('updtype/<type_id>', views.updType),
     
     path('dirs/', views.getDirs),
     path('adddir/', views.addDir),
